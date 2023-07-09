@@ -1,0 +1,65 @@
+﻿@model IEnumerable<EmployeeViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>All Employees</h1>
+
+<div class="row mt-5 justify-content-center align-items-center">
+    <form class="col-8 row" asp-action="Index">
+        <div class="col-8">
+            <input type="text" class="form-control" name="SearchValue"placeholder="Search By Name"/>
+        </div>
+        <div class="col-4">
+            <input type="submit" class="btn btn-success" value="Search"
+        </div>
+    </form>
+</div>
+<a class="btn btn-primary" asp-action="Create">Create new Department</a>
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped mt-3 table-hover">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(E=>E.Image)</td>
+                <td>@Html.DisplayNameFor(E=>E.Name)</td>
+                <td>@Html.DisplayNameFor(E=>E.Age)</td>
+                <td>@Html.DisplayNameFor(E=>E.Department)</td>
+                <td>@Html.DisplayNameFor(E=>E.Salary)</td>
+                <td>@Html.DisplayNameFor(E=>E.Email)</td>
+                <td>@Html.DisplayNameFor(E=>E.PhoneNumber)</td>
+                <td>@Html.DisplayNameFor(E=>E.HireDate)</td>
+                <td>Details</td>
+                <td>Update</td>
+                <td>Delete</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Files/Images/@employee.ImageName" class="rounded img-fluid" height="50" width="50" alt="Employee Image"/>
+                    </td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Age</td>
+                    <td>@Html.DisplayFor(M=>employee.Department.Name)</td>
+                    <td>@employee.Address</td>
+                    <td>@employee.Salary</td>
+                    <td>@employee.Email</td>
+                    <td>@employee.PhoneNumber</td>
+                    <td>@employee.HireDate</td>
+                    <partial name="_ButtonsPartialView" model="@employee.Id"/>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-4 alert alert-warning">
+
+        <h3>There is no Employees</h3>
+
+    </div>
+}
